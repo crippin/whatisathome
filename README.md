@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/crippin/whatisathome.svg?branch=master)](https://travis-ci.org/crippin/whatisathome)
+
 # whatisathome
 
 A new Flutter project.
