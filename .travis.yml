@@ -1,0 +1,29 @@
+matrix
+  include:
+    - os: linux
+      sudo: false
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - libstdc++6
+            - fonts-droid
+        git:
+          depth: 3
+        env:
+          - FLUTTER_VERSION=stable
+        before_script:
+          - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
+          - ./flutter/bin/flutter doctor
+          - chmod +x travis_script.sh
+        script:
+          - ./flutter/bin/flutter test
+
+cache:
+  directories:
+    - $HOME/shared/.pub-cache
+
+# Only building master means that we don't run two builds for each pull request.
+branches:
+only: [master]
