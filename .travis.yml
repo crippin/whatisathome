@@ -1,46 +1,65 @@
-os:
-  - linux
-sudo: false
-language: android
-android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-28.0.3
-    - android-28
-    - add-on
-    - extra
-licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - libstdc++6
-      - fonts-droid
-git:
-  depth: 3
-env:
-  - FLUTTER_VERSION=stable
-  - FLUTTER_VERSION=dev
-matrix:
-  fast_finish: true
-  allow_failures:
-    - env: FLUTTER_VERSION=dev
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
-  - ./flutter/bin/flutter doctor
-  #- chmod +x travis_script.sh
+before_install:
+  - chmod +x before_install.sh
+  - ./before_install.sh
 script:
-  - ./flutter/bin/flutter -v test
-  - ./flutter/bin/flutter -v build apk
+  - chmod +x travis_script.sh
+  - ./travis_script.sh
+matrix:
+  include:
+  # Linux
+    - os: linux
+      env: FLUTTER_VERSION=stable
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - build-tools-28.0.3
+          - android-28
+          - add-on
+          - extra
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - libstdc++6
+            - fonts-droid
+    - os: linux
+      env: FLUTTER_VERSION=dev
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - build-tools-28.0.3
+          - android-28
+          - add-on
+          - extra
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - libstdc++6
+            - fonts-droid
+    # OSX
+    - os: osx
+      env: FLUTTER_VERSION=stable
+      language: generic
+      osx_image: xcode10.1
+    - os: osx
+      env: FLUTTER_VERSION=dev
+      language: generic
+      osx_image: xcode10.1
 cache:
   directories:
-    - $HOME/shared/.pub-cache
-
-# Only building master means that we don't run two builds for each pull request.
-branches:
-only: [master]
+    - $HOME/.pub-cache
