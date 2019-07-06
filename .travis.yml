@@ -1,10 +1,11 @@
 before_install:
-  - chmod +x before_install.sh
-  - ./before_install.sh
+  - chmod +x tools/before_install.sh
+  - ./tools/before_install.sh
 script:
-  - chmod +x travis_script.sh
-  - ./travis_script.sh
+  - chmod +x tools/travis_script.sh
+  - ./tools/travis_script.sh
 matrix:
+  fast-finish: true
   include:
   # Linux
     - os: linux
