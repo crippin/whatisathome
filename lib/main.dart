@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'category_list.dart';
 import 'category_model.dart';
 
-void main() => runApp(MyApp());
+import 'package:flutter/foundation.dart' show debugDefaultTargetPlatformOverride;
+
+void main() {
+  debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
