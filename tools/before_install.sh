@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
 if [ $TRAVIS_OS_NAME = 'osx' ]; then
 
     pip install six
@@ -14,4 +16,18 @@ if [ $TRAVIS_OS_NAME = 'osx' ]; then
 fi
 
 git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
-./flutter/bin/flutter doctor
+
+case $TRAVIS_BRANCH in
+    flutter_web)
+        ./flutter/bin/flutter channel dev
+        ./flutter/bin/flutter pub global activate webdev
+        ;;
+    flutter_desktop)
+        ./flutter/bin/flutter channel master
+        ./flutter/bin/flutter upgrade
+        ;;
+    *)
+        ;;
+esac
+
+./flutter/bin/flutter pub get
