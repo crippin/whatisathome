@@ -1,0 +1,101 @@
+diff --git a/lib/category_card.dart b/lib/category_card.dart
+index ac3ce97..88da1e4 100644
+--- a/lib/category_card.dart
++++ b/lib/category_card.dart
+@@ -1,5 +1,5 @@
+-import 'package:flutter/material.dart';
+-import 'package:flutter/widgets.dart';
++import 'package:flutter_web/material.dart';
++import 'package:flutter_web/widgets.dart';
+ 
+ import 'category_model.dart';
+ 
+diff --git a/lib/category_list.dart b/lib/category_list.dart
+index 0eef15e..4e99da6 100644
+--- a/lib/category_list.dart
++++ b/lib/category_list.dart
+@@ -1,4 +1,4 @@
+-import 'package:flutter/material.dart';
++import 'package:flutter_web/material.dart';
+ 
+ import 'category_card.dart';
+ import 'category_model.dart';
+diff --git a/lib/main.dart b/lib/main.dart
+index a5c8d00..22e8d58 100644
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -1,12 +1,12 @@
+-import 'package:flutter/material.dart';
++import 'package:flutter_web/material.dart';
+ 
+ import 'category_list.dart';
+ import 'category_model.dart';
+ 
+-import 'package:flutter/foundation.dart' show debugDefaultTargetPlatformOverride;
++//import 'package:flutter/foundation.dart' show debugDefaultTargetPlatformOverride;
+ 
+ void main() {
+-  debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
++  //debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+   runApp(MyApp());
+ }
+ 
+diff --git a/pubspec.yaml b/pubspec.yaml
+index 5ee965a..30ed6b7 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -4,17 +4,35 @@ description: A new Flutter project.
+ version: 1.0.0+1
+ 
+ environment:
+-  sdk: ">=2.1.0 <3.0.0"
++  sdk: ">=2.3.0-dev.0.1 <3.0.0"
+ 
+ dependencies:
+-  flutter:
+-    sdk: flutter
+-
+-  cupertino_icons: ^0.1.2
++  flutter_web: any
++#  flutter:
++#    sdk: flutter
++#  cupertino_icons: ^0.1.2
+ 
+ dev_dependencies:
+-  flutter_test:
+-    sdk: flutter
++  flutter_web_test: any
++  build_runner: ^1.4.0
++  build_web_compilers: ^2.0.0
++  test: ^1.3.4
++#  flutter_test:
++#    sdk: flutter
++
++dependency_overrides:
++  flutter_web:
++    git:
++      url: https://github.com/flutter/flutter_web
++      path: packages/flutter_web
++  flutter_web_ui:
++    git:
++      url: https://github.com/flutter/flutter_web
++      path: packages/flutter_web_ui
++  flutter_web_test:
++    git:
++      url: https://github.com/flutter/flutter_web
++      path: packages/flutter_web_test
+ 
+ flutter:
+   uses-material-design: true
+diff --git a/test/widget_test.dart b/test/widget_test.dart
+index f7add85..7ed6e88 100644
+--- a/test/widget_test.dart
++++ b/test/widget_test.dart
+@@ -1,5 +1,5 @@
+-import 'package:flutter/material.dart';
+-import 'package:flutter_test/flutter_test.dart';
++import 'package:flutter_web/material.dart';
++import 'package:flutter_web_test/flutter_web_test.dart';
+ 
+ import 'package:whatisathome/main.dart';
+ 

@@ -2,7 +2,6 @@
 
 case $FLUTTER_VERSION in
     stable) #Android/ios
-        git checkout master
         if [ $TRAVIS_OS_NAME = 'osx' ]; then
             ./flutter/bin/flutter -v build ios --no-codesign
         else
@@ -10,11 +9,11 @@ case $FLUTTER_VERSION in
         fi
         ;;
     dev) # Web (html,js)
-        git checkout flutter_web
+        git apply flutter_web.patch
+        ./flutter/bin/flutter pub get
         ./flutter/bin/flutter packages pub global run webdev build -r
         ;;
     master) # Desktop
-        git checkout flutter_desktop
         git submodule update
         cp -R flutter-desktop-embedding/example/linux .
         cp -R flutter-desktop-embedding/example/macos .
