@@ -6,7 +6,6 @@ script:
   - ./tools/travis_script.sh
 matrix:
   include:
-  # Linux
     - os: linux
       name: 'Andorid APK |STABLE|'
       dist: xenial
@@ -35,8 +34,13 @@ matrix:
             - libc++-dev
             - libgtk-3-dev
             - pkg-config
+    - os: osx
+      name: 'iOS |STABLE|'
+      env: FLUTTER_VERSION=stable
+      language: generic
+      osx_image: xcode10.1
     - os: linux
-      name: 'Andorid APK |DEV|'
+      name: 'Web |DEV|'
       dist: xenial
       env: FLUTTER_VERSION=dev
       language: android
@@ -59,10 +63,11 @@ matrix:
           packages:
             - libstdc++6
             - fonts-droid
-            - g++
-            - libc++-dev
-            - libgtk-3-dev
-            - pkg-config
+    - os: osx
+      name: 'Web |DEV|'
+      env: FLUTTER_VERSION=dev
+      language: generic
+      osx_image: xcode10.1
     - os: linux
       name: 'Linux Desktop'
       dist: xenial
@@ -77,17 +82,12 @@ matrix:
           packages:
             - libgtk-3-dev
             - pkg-config
-    # OSX
     - os: osx
-      name: 'iOS |STABLE|'
-      env: FLUTTER_VERSION=stable
-      language: generic
-      osx_image: xcode10.1
-    - os: osx
-      name: 'iOS |DEV|'
-      env: FLUTTER_VERSION=dev
-      language: generic
-      osx_image: xcode10.1
+      name: 'OSX Desktop'
+      env: FLUTTER_VERSION=master
+      language: objective-c
+      xcode_project: macos/Runner.xcodeproj
+      xcode_scheme: Runner
 cache:
   directories:
     - $HOME/.pub-cache

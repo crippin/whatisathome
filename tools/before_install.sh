@@ -2,6 +2,8 @@
 
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
+git fetch --all
+
 if [ $TRAVIS_OS_NAME = 'osx' ]; then
 
     pip install six
@@ -12,22 +14,12 @@ if [ $TRAVIS_OS_NAME = 'osx' ]; then
     brew install --HEAD libimobiledevice
     brew install ideviceinstaller
     brew install ios-deploy
+    gem install cocoapods -v '1.6.0'
 
 fi
 
 git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
 
-case $TRAVIS_BRANCH in
-    flutter_web)
-        ./flutter/bin/flutter channel dev
-        ./flutter/bin/flutter pub global activate webdev
-        ;;
-    flutter_desktop)
-        ./flutter/bin/flutter channel master
-        ./flutter/bin/flutter upgrade
-        ;;
-    *)
-        ;;
-esac
-
+./flutter/bin/flutter pub global activate webdev
+./flutter/bin/flutter upgrade
 ./flutter/bin/flutter pub get
